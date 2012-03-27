@@ -9,11 +9,10 @@
   <url>http://www.f5se.com</url>
 
   <properties>
-    <bigip>192.168.1.245</bigip>
+    <bigip>192.168.0.62</bigip>
     <bigipusername>admin</bigipusername>
     <bigippassword>admin</bigippassword>
-    <generateHelperObject>true</generateHelperObject>
-    <generateIntermediateWrappers>true</generateIntermediateWrappers>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <repositories>
