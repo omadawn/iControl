@@ -71,11 +71,19 @@ public class IControlHTTPSender extends BasicHandler {
     protected HttpConnectionManager connectionManager;
     //protected CommonsHTTPClientProperties clientProperties;
     boolean httpChunkStream = false; //Use HTTP chunking or not.
+    protected String httpProxy = "";
+    protected int httpProxyPort = 0; 
 
     public IControlHTTPSender() {
         initialize();
     }
 
+    public IControlHTTPSender(String proxyHost, int proxyPort) {
+        httpProxy = proxyHost;
+        httpProxyPort = proxyPort;
+    	initialize();
+    }
+    
     protected void initialize() {
         MultiThreadedHttpConnectionManager cm = new MultiThreadedHttpConnectionManager();
         //this.clientProperties = CommonsHTTPClientPropertiesFactory.create();        
@@ -109,6 +117,9 @@ public class IControlHTTPSender extends BasicHandler {
             // the timeout value for allocation of connections from the pool
             httpClient.getParams().setConnectionManagerTimeout(20);
             HostConfiguration hostConfiguration = getHostConfiguration(httpClient, msgContext, targetURL);
+            if(httpProxy.length() > 2 && httpProxyPort > 0) {
+            	hostConfiguration.setProxy(httpProxy, httpProxyPort);
+            }           
             boolean posting = true;
             // If we're SOAP 1.2, allow the web method to be set from the
             // MessageContext.

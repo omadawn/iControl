@@ -30,6 +30,8 @@ public class BigIP {
    private long session_id = -1;
    private String currentFolder = "Common";
    private boolean inTransaction = false;
+   private String httpProxy = "";
+   private int httpProxyPort = 0;
 
 
 
@@ -64,10 +66,39 @@ public class BigIP {
      setPassword(password);
      initTransport();
    }
+   public BigIP(String hostname, String username, String password, String httpProxy, int httpProxyPort) {
+        log.trace("entering constructor BigIP(username,password).");
+        this.username = username;
+        this.password = password;
+        this.httpProxy = httpProxy;
+        this.httpProxyPort = httpProxyPort;
+        initTransport();
+        try {
+          setHost(hostname);
+        } catch (MalformedURLException e) {
+          log.error("Exception",e);
+          e.printStackTrace();
+        }
+   }
+   public BigIP(URL url, String username, String password, String httpProxy, int httpProxyPort) {
+     log.trace("entering constructor BigIP(url,username,password).");
+     this.url = url;
+     this.httpProxy = httpProxy;
+     this.httpProxyPort = httpProxyPort;
+     setUsername(username);
+     setPassword(password);
+     initTransport();
+   }
    private void initTransport() {
-      SimpleTargetedChain c = new SimpleTargetedChain(new IControlHTTPSender());
-      config.deployTransport("http", c);
-      config.deployTransport("https", c);
+     IControlHTTPSender sender;
+     if(httpProxy.length() > 2 && httpProxyPort > 0) {
+         sender = new IControlHTTPSender(httpProxy,httpProxyPort);
+     }else{
+   	  sender = new IControlHTTPSender();
+     }
+     SimpleTargetedChain c = new SimpleTargetedChain(sender);
+     config.deployTransport("http", c);
+     config.deployTransport("https", c);
    }
    public URL getUrl() {
      log.trace("entering getUrl()");

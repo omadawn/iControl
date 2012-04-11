@@ -9,7 +9,7 @@
   <url>http://www.f5se.com</url>
 
   <properties>
-    <bigip>192.168.0.62</bigip>
+    <bigip>10.0.40.121</bigip>
     <bigipusername>admin</bigipusername>
     <bigippassword>admin</bigippassword>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -126,7 +126,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>axistools-maven-plugin</artifactId>
         <version>1.4</version>
-	<dependencies>
+	    <dependencies>
           <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
@@ -211,9 +211,9 @@
         <configuration>
          <filesets>
            <fileset>
-             <directory>src/main/resources/wsdls</directory>
+             <directory>src/main/resources/</directory>
              <includes>
-                <include>**/*.wsdl</include>
+                <include>**/*.*</include>
              </includes>
            </fileset>
            <fileset>
@@ -298,5 +298,6 @@
   </distributionManagement>
   <scm>
   	<developerConnection>j.gruber@f5.com</developerConnection>
+  	<url>https://github.com/jgruber/iControl</url>
   </scm>
 </project>
