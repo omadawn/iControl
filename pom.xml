@@ -9,7 +9,7 @@
   <url>http://www.f5se.com</url>
 
   <properties>
-    <bigip>10.0.40.121</bigip>
+    <bigip>192.168.111.245</bigip>
     <bigipusername>admin</bigipusername>
     <bigippassword>admin</bigippassword>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +31,7 @@
         <repository>
           <id>www.f5se.com</id>
           <name>Maven Repository for www.f5se.com</name>
-          <url>http://www.f5se.com/repository/</url>
+          <url>https://www.f5se.com/repository/</url>
           <layout>default</layout>
         </repository>
   </repositories>
